@@ -1,0 +1,45 @@
+asuna-cloud-swagger:
+  server:
+    url: /
+    description: API GATEWAY - MICROSERVICES
+  info:
+    title: Asuna Cloud - Microservices
+    description: @project.description@
+    version: @project.version@
+    contact:
+      name: Rodolfo Freire
+      url: https://github.com/rodolfod2r2
+      email: rodolfod2r2@gmail.com
+    termsOfServiceUrl: https://github.com/rodolfod2r2/terms/service/protect/
+    license: Asuna License User
+    licenseUrl: https://github.com/rodolfod2r2licenses/LICENSE-2.0.html
+server:
+  port: 8001
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: info, health, metrics
+  metrics:
+    export:
+      atlas:
+        enabled: false
+eureka:
+  dashboard:
+    path: /
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://localhost:8001/eureka
+spring:
+  application:
+    name: discovery
+  profiles:
+    active: native
+

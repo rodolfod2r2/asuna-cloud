@@ -1,0 +1,39 @@
+springdoc:
+  swagger-ui:
+    operationsSorter: alpha
+    path: /swagger-ui.html
+  pathsToMatch: /**
+server:
+  port: 8201
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: info, health, metrics
+  metrics:
+    export:
+      atlas:
+        enabled: true
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8001/eureka
+spring:
+  application:
+    name: asuna-kafka-producer
+  profiles:
+    active: native
+  kafka:
+    bootstrap-servers: localhost:9092
+  zipkin:
+    base-url: http://localhost:9411
+  sleuth:
+    sampler:
+      probability: 1.0

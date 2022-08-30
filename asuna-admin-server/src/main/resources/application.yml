@@ -1,0 +1,26 @@
+asuna-cloud-swagger:
+  server:
+    description: API GATEWAY - MICROSERVICES
+  info:
+    title: Asuna Cloud - Microservices
+    description: @project.description@
+    version: @project.version@
+    contact:
+      name: Rodolfo Freire
+      url: https://github.com/rodolfod2r2
+      email: rodolfod2r2@gmail.com
+    termsOfServiceUrl: https://github.com/rodolfod2r2/terms/service/protect/
+    license: Asuna License User
+    licenseUrl: https://github.com/rodolfod2r2licenses/LICENSE-2.0.html
+spring:
+  application:
+    name: asuna-admin-server
+  profiles:
+    active: native
+  config:
+    import: optional:configserver:http://localhost:8002
+  cloud:
+    config:
+      profile: ${spring.profiles.active}
+      name: ${spring.application.name}
+      uri: http://localhost:8002

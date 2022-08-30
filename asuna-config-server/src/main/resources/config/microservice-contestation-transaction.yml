@@ -1,0 +1,34 @@
+server:
+  port: 8106
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: info, health, metrics
+  metrics:
+    export:
+      atlas:
+        enabled: true
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8001/eureka
+spring:
+  application:
+    name: microservice-contestation-transaction
+  profiles:
+    active: native
+  kafka:
+    bootstrap-servers: localhost:9092
+springdoc:
+  swagger-ui:
+    operationsSorter: alpha
+    path: /swagger-ui.html
+  pathsToMatch: /contestation/**

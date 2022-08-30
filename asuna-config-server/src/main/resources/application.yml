@@ -1,0 +1,52 @@
+asuna-cloud-swagger:
+  info:
+    title: Asuna Cloud - Microservices
+    description: @project.description@
+    version: @project.version@
+    contact:
+      name: Rodolfo Freire
+      url: https://github.com/rodolfod2r2
+      email: rodolfod2r2@gmail.com
+    termsOfServiceUrl: https://github.com/rodolfod2r2/terms/service/protect/
+    license: Asuna License User
+    licenseUrl: https://github.com/rodolfod2r2licenses/LICENSE-2.0.html
+server:
+  port: 8002
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+         # include: info, health, metrics,loggers
+  metrics:
+    export:
+      atlas:
+        enabled: true
+spring:
+  application:
+    name: config-server
+  profiles:
+    active: native
+  cloud:
+    discovery:
+      enabled: true
+    config:
+      profile: native
+      server:
+        native:
+          searchLocations: "[classpath:/, classpath:/config, classpath:/config/{application}, classpath:/config/{application}/{profile}]"
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8001/eureka
+#    registry-fetch-interval-seconds: 120
+#    should-enforce-registration-at-init: off
+#    initial-instance-info-replication-interval-seconds: 120
+#    instance-info-replication-interval-seconds: 120

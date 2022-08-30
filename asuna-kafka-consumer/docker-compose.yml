@@ -1,0 +1,25 @@
+version: '3'
+services:
+  asuna-kafka-consumer:
+    image: asuna-kafka-consumer
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "8101:8101"
+    restart: always
+    environment:
+      - SPRING_BOOTSTRAP-SERVERS=broker:9092
+      - SPRING_KAFKA_CONSUMER_AUTO-OFFSET-RESET=earliest
+      - SPRING_KAFKA_CONSUMER_AUTO-COMMIT-INTERVAL=1000
+      - SPRING_KAFKA_CONSUMER_ENABLE-AUTO-COMMIT=false
+      - SPRING_KAFKA_CONSUMER_MAX-POLL-RECORDS=5000
+      - SPRING_KAFKA_CONSUMER_FETCH-MIN-SIZE=12000000
+      - SPRING_KAFKA_CONSUMER_FETCH-MAX-WAIT=2000
+      - SPRING_KAFKA_CONSUMER_FETCH-MAX-BYTES=52428800
+      - SPRING_KAFKA_CONSUMER_MAX-POLL-INTERVAL=90000
+      - SPRING_KAFKA_CONSUMER_REQUEST-TIMEOUT-MS=60000
+      - SPRING_KAFKA_CONSUMER_RETRY-BACKOFF-MS=2000
+      - SPRING_KAFKA_CONSUMER_MAX-PARTITION-FETCH-BYTES=4048576
+    volumes:
+      - /data/asuna-kafka-consumer

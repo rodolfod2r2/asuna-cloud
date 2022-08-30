@@ -1,0 +1,68 @@
+jarvis:
+  cloud:
+    route:
+      sender: true
+  builder:
+    failOver: true
+    numberOfAttempts: 3
+    workflowWithout: DmodelSTUB
+    workflowPattern: DRBTRAN
+    workflowCredit: DBC14AA
+    workflowDebit: DIDM13AA
+    workflowRetail: DRBTRAN
+    keepFile: false
+    output: /opt/falcon/
+    maxLines: 3000
+    maxLinesNmon: 3000
+    uploadTime: 30000
+    decrypt:
+      maxRequestPerFile: 70
+      waitForNextRequest: 100
+      timeout: 1200
+      enableBinChave: false
+server:
+  port: 8101
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: info, health, metrics
+  metrics:
+    export:
+      atlas:
+        enabled: true
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8001/eureka
+spring:
+  application:
+    name: asuna-kafka-consumer
+  profiles:
+    active: native
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      auto-offset-reset: earliest
+      auto-commit-interval: 1000
+      enable-auto-commit: false
+      max-poll-records: 5000
+      fetch-min-size: 12000000
+      fetch-max-wait: 2000
+      fetch-max-bytes: 52428800
+      max-poll-interval: 90000
+      request-timeout-ms: 60000
+      retry-backoff-ms: 2000
+      max-partition-fetch-bytes: 4048576
+  zipkin:
+    base-url: http://localhost:9411
+  sleuth:
+    sampler:
+      probability: 1.0

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.framework.rodolfo.freire.git</groupId>
+    <artifactId>asuna-cloud</artifactId>
+    <version>0.0.1</version>
+    <name>asuna-cloud-microservices</name>
+    <description>ASUNA CLOUD MICROSERVICES</description>
+    <packaging>pom</packaging>
+
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+
+    <modules>
+        <module>asuna-core</module>
+        <module>asuna-discovery-server</module>
+        <module>asuna-config-server</module>
+        <module>asuna-api-gateway</module>
+        <module>asuna-admin-server</module>
+        <module>asuna-aop-aspect-log</module>
+        <module>asuna-cryptography</module>
+        <module>asuna-data-jpa</module>
+        <module>asuna-data-mongo</module>
+        <module>asuna-data-mongo-reactive</module>
+        <module>asuna-data-mongo-reactive-router</module>
+        <module>asuna-kafka-consumer</module>
+        <module>asuna-kafka-producer</module>
+    </modules>
+</project>

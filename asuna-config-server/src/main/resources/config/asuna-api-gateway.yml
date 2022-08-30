@@ -1,0 +1,90 @@
+springdoc:
+  swagger-ui:
+    operationsSorter: alpha
+    path: /swagger-ui.html
+server:
+  port: 8003
+management:
+  health:
+    mongo:
+      enabled: false
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: info, health, metrics
+  metrics:
+    export:
+      atlas:
+        enabled: true
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8001/eureka
+spring:
+  application:
+    name: gateway
+  profiles:
+    active: native
+  boot:
+    admin:
+      client:
+        url: "http://localhost:8008"
+  cloud:
+    config:
+      profile: native
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+      discovery:
+        locator:
+          lower-case-service-id: true
+          enabled: true
+      routes:
+        - id: asuna-data-jpa
+          uri: lb://asuna-data-jpa
+          predicates:
+            - Path=/asuna-data-jpa/message/**
+            - Method=POST, GET, PUT, DELETE
+          filters:
+            - RewritePath=/asuna-data-jpa/(?<path>.*), /$\{path}
+        - id: asuna-data-mongo
+          uri: lb://asuna-data-mongo
+          predicates:
+            - Path=/data-mongo/message/**
+            - Method=POST
+          filters:
+            - RewritePath=/asuna-data-mongo/(?<path>.*), /$\{path}
+        - id: asuna-data-mongo-reactive
+          uri: lb://asuna-data-mongo-reactive
+          predicates:
+            - Path=/data-mongo-reactive/message/**
+            - Method=POST, GET, PUT, DELETE
+          filters:
+            - RewritePath=/asuna-data-mongo-reactive/(?<path>.*), /$\{path}
+        - id: asuna-kafka-producer
+          uri: lb://asuna-kafka-producer
+          predicates:
+            - Path=/kafka-message/**
+            - Method=POST, GET, PUT, DELETE
+          filters:
+            - RewritePath=/asuna-kafka-producer/(?<path>.*), /$\{path}
+        - id: openapi
+          uri: http://localhost:${server.port}
+          predicates:
+            - Path=/v3/api-docs/**
+          filters:
+            - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs

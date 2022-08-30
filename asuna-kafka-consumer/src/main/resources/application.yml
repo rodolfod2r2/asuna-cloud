@@ -1,0 +1,21 @@
+#info:
+#  app:
+#    name: @project.name@
+#    description: project.description
+#    version: project.version
+#    encoding: @project.build.sourceEncoding@
+#  java:
+#    version: @java.version@
+spring:
+  application:
+    name: asuna-kafka-consumer
+  profiles:
+    active: native
+  config:
+    import: optional:configserver:http://localhost:8002
+  cloud:
+    config:
+      profile: ${spring.profiles.active}
+      name: ${spring.application.name}
+      uri: http://localhost:8002
+

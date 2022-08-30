@@ -1,0 +1,51 @@
+springdoc:
+  swagger-ui:
+    operationsSorter: alpha
+    path: /swagger-ui.html
+  pathsToMatch: /**
+server:
+  port: 9100
+management:
+  health:
+    mongo:
+      enabled: true
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: info, health, metrics
+  metrics:
+    export:
+      atlas:
+        enabled: true
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8001/eureka
+spring:
+  application:
+    name: asuna-aop-aspect-log
+  profiles:
+    active: native
+  boot:
+    admin:
+      client:
+        url: "http://localhost:8008"
+  data:
+    mongodb:
+      database: asuna
+      port: 27017
+  mongodb:
+    embedded:
+      version: 3.4.2
+  logging:
+    file:
+      name: asuna-aop-aspect-log.log
+      max-history: 5
+      max-size: 10MB

@@ -1,0 +1,14 @@
+version: '3'
+services:
+  asuna-api-gateway:
+    image: asuna-api-gateway
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "8201:8201"
+    restart: always
+    environment:
+      - SPRING_BOOTSTRAP-SERVERS=broker:9092
+    volumes:
+      - /data/asuna-api-gateway

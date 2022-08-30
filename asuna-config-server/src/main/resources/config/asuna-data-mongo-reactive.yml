@@ -1,0 +1,42 @@
+springdoc:
+  swagger-ui:
+    operationsSorter: alpha
+    path: /swagger-ui.html
+  pathsToMatch: /**
+server:
+  port: 9101
+management:
+  health:
+    mongo:
+      enabled: true
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: info, health, metrics
+  metrics:
+    export:
+      atlas:
+        enabled: true
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8001/eureka
+spring:
+  application:
+    name: asuna-data-mongo-reactive
+  profiles:
+    active: native
+  data:
+    mongodb:
+      database: asuna
+      port: 27017
+  mongodb:
+    embedded:
+      version: 3.4.2

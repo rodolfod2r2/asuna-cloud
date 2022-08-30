@@ -1,0 +1,58 @@
+springdoc:
+  swagger-ui:
+    operationsSorter: alpha
+    path: /swagger-ui.html
+server:
+  port: 8008
+management:
+  health:
+    mongo:
+      enabled: false
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  metrics:
+    export:
+      atlas:
+        enabled: true
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8001/eureka
+spring:
+  application:
+    name: asuna-admin-server
+  boot:
+    admin:
+      client:
+        username: admin
+        password=: admin
+        instance:
+          metadata:
+            user:
+              name: ${spring.security.user.name}
+              password: ${spring.security.user.password}
+      routes:
+        endpoints: env, metrics, trace, jolokia, info, configprops
+  profiles:
+    active: native
+  cloud:
+    config:
+      profile: native
+  security:
+    user:
+      name: client
+      password: client
+  logging:
+    file:
+      name: asuna-admin-server.log
+      max-history: 5
+      max-size: 10MB
